@@ -1,24 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import RichText from './components/RichText';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RichText bg="primary" color="white">
+        <h1>React Basics - with Form and Accordion</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a erat at magna tristique consequat et sed lacus. Fusce eleifend semper velit, eget auctor diam luctus quis.</p>
+      </RichText>
     </div>
   );
 }
