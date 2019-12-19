@@ -15,14 +15,14 @@ export default {
     xxl: `@media screen and (min-width: ${breakpoints.xxl})`
   },
   fontSizes: {
-    body: [16, 16],
-    h1: [40, 45],
-    h2: [32, 40],
-    h3: [32, 35],
-    h4: [24, 30],
-    h5: [20, 24],
-    h6: [18, 20],
-    small: [13, 14]
+    body: ['16px', '16px'],
+    h1: ['40px', '45px'],
+    h2: ['32px', '40px'],
+    h3: ['32px', '35px'],
+    h4: ['24px', '30px'],
+    h5: ['20px', '24px'],
+    h6: ['18px', '20px'],
+    small: ['13px', '14px']
   },
   lineHeights: {
     body: ["1.5", "1.5"],
