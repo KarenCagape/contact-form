@@ -1,20 +1,40 @@
-import React from 'react';
-import RichText from './components/RichText';
-import Submit from './components/Submit';
-import TextBox from './components/TextBox';
-import { Container } from './components/Grid';
+import React, { useState, useEffect } from "react";
+import ContactList from "./views/ContactList";
+import Button from "./components/Button";
+import Box from "./components/Box";
+import { Container } from "./components/Grid";
 
 function App() {
-  return (
-    <Container>
-      <RichText bg="primary" color="white">
-        <h1>React Basics - with Form and Accordion</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a erat at magna tristique consequat et sed lacus. Fusce eleifend semper velit, eget auctor diam luctus quis.</p>
-      </RichText>
-      <Submit>Request Demo</Submit>
-      <TextBox placeholder="Sample field" />
-    </Container>
-  );
+  const [contacts, setContacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let response = await fetch("https://jsonplaceholder.typicode.com/users");
+      let data = await response.json();
+
+      setContacts(data);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  });
+
+  if (!isLoading) {
+    return (
+      <>
+        <Box bg="primary">
+          <Container>
+            <Button variant="white">Add Contact</Button>
+          </Container>
+        </Box>
+        <Box bg="secondaryDarker" color="white">
+          <ContactList contacts={contacts} />
+        </Box>
+      </>
+    );
+  }
+  return false;
 }
 
 export default App;
