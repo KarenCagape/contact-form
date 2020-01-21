@@ -1,53 +1,64 @@
+import React from "react";
 import styled from "styled-components";
-import { space, color } from "styled-system";
+import { space, color, typography } from "styled-system";
 import css from "@styled-system/css";
 
-const heading = ({ heading }) => heading;
+const H1 = styled("h1")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h1,
+    lineHeight: theme.lineHeights.h1
+  })
+);
 
-let Title;
+const H2 = styled("h2")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h2,
+    lineHeight: theme.lineHeights.h2
+  })
+);
 
-if (heading === "h2") {
-  Title = styled("h2")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
-} else if (heading === "h3") {
-  Title = styled("h3")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
-} else if (heading === "h4") {
-  Title = styled("h4")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
-} else if (heading === "h5") {
-  Title = styled("h5")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
-} else if (heading === "h6") {
-  Title = styled("h6")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
-} else {
-  Title = styled("h1")(space, color, ({ theme }) => {
-    css({
-      fontSize: theme.fontSizes.h1,
-      lineHeight: theme.lineHeights.h1
-    });
-  });
+const H3 = styled("h3")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h3,
+    lineHeight: theme.lineHeights.h3
+  })
+);
+
+const H4 = styled("h4")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h4,
+    lineHeight: theme.lineHeights.h4
+  })
+);
+
+const H5 = styled("h5")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h5,
+    lineHeight: theme.lineHeights.h5
+  })
+);
+
+const H6 = styled("h6")(color, space, typography, ({ theme }) =>
+  css({
+    fontSize: theme.fontSizes.h6,
+    lineHeight: theme.lineHeights.h6
+  })
+);
+
+function Title(props) {
+  if (props.heading === "h2") {
+    return <H2 {...props} />;
+  } else if (props.heading === "h3") {
+    return <H3 {...props} />;
+  } else if (props.heading === "h4") {
+    return <H4 {...props} />;
+  } else if (props.heading === "h5") {
+    return <H5 {...props} />;
+  } else if (props.heading === "h6") {
+    return <H6 {...props} />;
+  } else {
+    return <H1 {...props} />;
+  }
 }
 
 export default Title;

@@ -1,36 +1,63 @@
 import React, { useState, useEffect } from "react";
-import ContactList from "./views/ContactList";
-import Button from "./components/Button";
-import Box from "./components/Box";
-import { Container } from "./components/Grid";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import uuidv4 from "uuid/v4";
+
+import routes from "./route";
+import Header from "./components/Header";
+
+const LOCAL_STORAGE_KEY = "contactApp.contacts";
 
 function App() {
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  function mapRoutes({ path, Component }, i) {
+    return (
+      <Route
+        key={i}
+        exact
+        path={path}
+        component={({ history }) => {
+          return (
+            <Component
+              onAddContact={contact => {
+                setContacts(prevContacts => {
+                  return [...prevContacts, { id: uuidv4(), ...contact }];
+                });
+                history.push("/");
+              }}
+              onRemoveContact={contact => {
+                setContacts(prevContacts => {
+                  return prevContacts.filter((item) => item.id !== contact.id);
+                });
+                history.push("/");
+              }}
+              contacts={contacts}
+            />
+          );
+        }}
+      />
+    );
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await fetch("https://jsonplaceholder.typicode.com/users");
-      let data = await response.json();
+    const storedContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedContacts) setContacts(storedContacts);
 
-      setContacts(data);
-      setIsLoading(false);
-    };
+    setIsLoading(false);
+  }, []);
 
-    fetchData();
-  });
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
 
   if (!isLoading) {
     return (
       <>
-        <Box bg="primary">
-          <Container>
-            <Button variant="white">Add Contact</Button>
-          </Container>
-        </Box>
-        <Box bg="secondaryDarker" color="white">
-          <ContactList contacts={contacts} />
-        </Box>
+        <Router>
+          <Header />
+          {routes.map(mapRoutes)}
+        </Router>
       </>
     );
   }
